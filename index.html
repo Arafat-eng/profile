@@ -6,19 +6,11 @@
 <title>PHANTO MK</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body, html {
-    height: 100%;
-    overflow: hidden;
-    background: #000;
-    font-family: 'Inter', system-ui, sans-serif;
-    color: white;
-  }
+  body, html { height:100%; overflow:hidden; background:#000; font-family: system-ui, sans-serif; }
   #bg-video {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
+    top: 50%; left: 50%;
+    min-width: 100%; min-height: 100%;
     transform: translate(-50%, -50%);
     z-index: 1;
     object-fit: cover;
@@ -26,112 +18,67 @@
   .overlay {
     position: fixed;
     inset: 0;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.85));
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.95));
     z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .card {
-    position: relative;
-    z-index: 3;
+  .content {
     text-align: center;
-    width: 380px;
-    max-width: 92vw;
-    padding: 50px 35px 40px;
-    background: rgba(10, 10, 20, 0.75);
-    border: 1px solid rgba(0, 255, 157, 0.4);
-    border-radius: 22px;
-    backdrop-filter: blur(18px);
-    box-shadow: 0 0 80px rgba(0, 255, 157, 0.25);
+    z-index: 3;
   }
-  .avatar {
-    width: 128px;
-    height: 128px;
-    border-radius: 50%;
-    border: 5px solid #00ff9d;
-    margin: 0 auto 24px;
-    overflow: hidden;
-  }
-  .avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .name {
-    font-size: 32px;
+  .title {
+    font-size: 48px;
     font-weight: 700;
-    letter-spacing: -1.5px;
-    margin-bottom: 8px;
-    text-shadow: 0 0 30px #00ff9d;
-  }
-  .handle {
-    color: #00ff9d;
-    font-family: monospace;
-    font-size: 15px;
+    letter-spacing: 4px;
+    color: #ddd;
+    text-shadow: 0 0 40px #ff0000;
+    margin-bottom: 30px;
   }
   .enter {
-    margin-top: 40px;
-    font-size: 17px;
-    letter-spacing: 2px;
-    color: #aaa;
+    font-size: 18px;
+    padding: 18px 50px;
+    border: 2px solid #ff3333;
+    color: #ffcccc;
     cursor: pointer;
-    transition: 0.4s;
+    transition: all 0.4s;
   }
   .enter:hover {
-    color: #00ff9d;
-    text-shadow: 0 0 20px #00ff9d;
+    background: #ff0000;
+    color: white;
+    box-shadow: 0 0 30px #ff0000;
   }
 </style>
 </head>
 <body>
 
-<!-- === EXACT BACKGROUND VIDEO === -->
 <video id="bg-video" autoplay loop muted playsinline>
-  <source src="/home/workdir/attachments/Screen Recording 2026-07-01 195828.mp4" type="video/mp4">
-  Your browser does not support the video tag.
+  <source src="ssstik.io_1777651151819 (1).mp4" type="video/mp4">
 </video>
 
 <div class="overlay">
-  <div class="card">
-    <div class="avatar">
-      <img src="/home/workdir/attachments/channels4_profile.jpg" alt="PHANTO MK">
-    </div>
-    <div class="name">PHANTO MK</div>
-    <div class="handle">@phanto_mk</div>
-    
-    <div class="enter" id="enter">CLICK TO ENTER...</div>
+  <div class="content">
+    <div class="title">PHANTO MK</div>
+    <div class="enter" onclick="window.location.href='main.html'">ENTER THE VOID</div>
   </div>
 </div>
 
 <!-- Background Audio -->
-<audio id="bg-audio" loop>
-  <!-- Add your audio URL here if you have one -->
-  <source src="" type="audio/mp3">
+<audio id="bg-audio" loop autoplay>
+  <source src="" type="audio/mp3"> <!-- Add your audio URL here -->
 </audio>
 
 <script>
   const video = document.getElementById('bg-video');
   const audio = document.getElementById('bg-audio');
-  const enterBtn = document.getElementById('enter');
 
-  // Ensure video plays
-  video.play().catch(() => {});
+  video.play().catch(e => console.log("Video autoplay prevented"));
 
-  // Optional: Play audio when user clicks "enter"
-  enterBtn.addEventListener('click', () => {
-    if (audio.src) {
-      audio.play();
-    }
-    alert("Welcome to the Phantom Realm 🔥");
-  });
-
-  // Keyboard shortcut (Space = toggle audio)
-  document.addEventListener('keydown', e => {
-    if (e.code === 'Space') {
-      audio.paused ? audio.play() : audio.pause();
-    }
-  });
+  // Click anywhere to unmute audio if needed
+  document.addEventListener('click', () => {
+    if (audio.src && audio.paused) audio.play();
+  }, { once: true });
 </script>
 
 </body>
