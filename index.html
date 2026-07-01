@@ -5,54 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PHANTO MK</title>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body, html { height:100%; overflow:hidden; background:#000; font-family: system-ui, sans-serif; }
-  #bg-video {
-    position: fixed;
-    top: 50%; left: 50%;
-    min-width: 100%; min-height: 100%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    object-fit: cover;
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body,html{height:100%;overflow:hidden;background:#000;}
+  #bg-video{
+    position:fixed;
+    top:50%; left:50%;
+    min-width:100%; min-height:100%;
+    transform:translate(-50%,-50%);
+    z-index:1;
+    object-fit:cover;
   }
-  .overlay {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.95));
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.9));
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
-  .content {
-    text-align: center;
-    z-index: 3;
+  .content{text-align:center; z-index:3;}
+  .title{
+    font-size:52px;
+    font-weight:900;
+    letter-spacing:6px;
+    color:#ddd;
+    text-shadow:0 0 40px #880000;
+    margin-bottom:40px;
   }
-  .title {
-    font-size: 48px;
-    font-weight: 700;
-    letter-spacing: 4px;
-    color: #ddd;
-    text-shadow: 0 0 40px #ff0000;
-    margin-bottom: 30px;
+  .enter{
+    font-size:19px;
+    padding:20px 60px;
+    border:2px solid #ff4444;
+    color:#ffdddd;
+    cursor:pointer;
+    transition:0.4s;
   }
-  .enter {
-    font-size: 18px;
-    padding: 18px 50px;
-    border: 2px solid #ff3333;
-    color: #ffcccc;
-    cursor: pointer;
-    transition: all 0.4s;
-  }
-  .enter:hover {
-    background: #ff0000;
-    color: white;
-    box-shadow: 0 0 30px #ff0000;
+  .enter:hover{
+    background:#ff0000;
+    color:white;
+    box-shadow:0 0 40px #ff0000;
   }
 </style>
 </head>
 <body>
 
+<!-- BACKGROUND VIDEO -->
 <video id="bg-video" autoplay loop muted playsinline>
   <source src="ssstik.io_1777651151819 (1).mp4" type="video/mp4">
 </video>
@@ -60,25 +58,15 @@
 <div class="overlay">
   <div class="content">
     <div class="title">PHANTO MK</div>
-    <div class="enter" onclick="window.location.href='main.html'">ENTER THE VOID</div>
+    <div class="enter" onclick="window.location.href='main.html'">
+      ENTER THE VOID
+    </div>
   </div>
 </div>
 
-<!-- Background Audio -->
-<audio id="bg-audio" loop autoplay>
-  <source src="" type="audio/mp3"> <!-- Add your audio URL here -->
-</audio>
-
 <script>
-  const video = document.getElementById('bg-video');
-  const audio = document.getElementById('bg-audio');
-
-  video.play().catch(e => console.log("Video autoplay prevented"));
-
-  // Click anywhere to unmute audio if needed
-  document.addEventListener('click', () => {
-    if (audio.src && audio.paused) audio.play();
-  }, { once: true });
+  // Force video to play
+  document.getElementById('bg-video').play().catch(()=>{});
 </script>
 
 </body>
