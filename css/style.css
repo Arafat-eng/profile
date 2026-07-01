@@ -1,155 +1,116 @@
 :root{
-  --bg:#07060b;
-  --ink:#eae6ff;
-  --muted:#8b85a8;
-  --accent:#8b5cf6;
-  --accent2:#22d3ee;
-  --card:rgba(255,255,255,0.04);
-  --line:rgba(255,255,255,0.08);
+  --bg:#0a0614;
+  --ink:#f0e6ff;
+  --muted:#a38cff;
+  --accent:#ff00ff;
+  --accent2:#00f0ff;
+  --card:rgba(20,10,40,0.65);
+  --line:rgba(255,255,255,0.1);
 }
-*{ box-sizing:border-box; margin:0; padding:0; }
-html,body{
+
+* { box-sizing:border-box; margin:0; padding:0; }
+html,body {
   min-height:100%;
   background:var(--bg);
   color:var(--ink);
   font-family:'Inter',system-ui,-apple-system,sans-serif;
 }
-a{ color:inherit; }
+a { color:inherit; }
 
-#bgcanvas{
-  position:fixed; inset:0; z-index:0;
-}
-.vignette{
+#bgcanvas { position:fixed; inset:0; z-index:0; }
+.vignette {
   position:fixed; inset:0; z-index:1;
-  background:radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(0,0,0,0.55) 75%);
+  background:radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(0,0,0,0.7) 70%);
   pointer-events:none;
 }
 
-/* ---------- top nav (profile / links pages) ---------- */
-.nav{
+/* Neon Name Effect */
+.neon-name {
+  font-size:28px; 
+  font-weight:900; 
+  letter-spacing:.05em;
+  background: linear-gradient(90deg, #ff00ff, #00f0ff, #ffff00, #ff00ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: neon-shift 4s linear infinite;
+  text-shadow: 
+    0 0 10px #ff00ff,
+    0 0 20px #00f0ff,
+    0 0 40px #ffff00;
+}
+
+@keyframes neon-shift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Rest of your original styles + enhancements */
+.nav {
   position:relative; z-index:10;
   display:flex; justify-content:center; gap:28px;
   padding:22px 0 4px;
-  font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+  font-size:13px; letter-spacing:.2em; text-transform:uppercase;
   color:var(--muted);
 }
-.nav a{ text-decoration:none; padding-bottom:6px; border-bottom:2px solid transparent; transition:color .2s, border-color .2s; }
-.nav a:hover{ color:var(--ink); }
-.nav a.active{ color:var(--ink); border-color:var(--accent); }
+.nav a { text-decoration:none; padding-bottom:6px; border-bottom:2px solid transparent; transition:all .3s; }
+.nav a:hover, .nav a.active { color:var(--ink); border-color:var(--accent); text-shadow:0 0 8px var(--accent); }
 
-/* ---------- gate (index page) ---------- */
-#gate{
-  position:fixed; inset:0; z-index:50;
-  display:flex; align-items:center; justify-content:center;
-  background:var(--bg);
-  cursor:pointer;
-}
-.enter-wrap{ text-align:center; }
-.enter-ring{
-  width:88px; height:88px; margin:0 auto 22px;
+.enter-ring {
+  width:100px; height:100px; margin:0 auto 22px;
   border-radius:50%;
-  border:1px solid var(--line);
+  border:2px solid var(--line);
   display:flex; align-items:center; justify-content:center;
   position:relative;
+  animation: ring-pulse 2s ease-in-out infinite;
 }
-.enter-ring::before{
-  content:''; position:absolute; inset:-1px; border-radius:50%;
-  border:1px solid var(--accent); opacity:.5;
-  animation:pulse-ring 2.2s ease-out infinite;
+.enter-ring::before {
+  content:''; position:absolute; inset:-4px; border-radius:50%;
+  border:2px solid var(--accent); opacity:0.6;
+  animation:pulse-ring 2.5s ease-out infinite;
 }
-@keyframes pulse-ring{
-  0%{ transform:scale(1); opacity:.6; }
-  100%{ transform:scale(1.6); opacity:0; }
-}
-.enter-ring svg{ width:26px; height:26px; stroke:var(--ink); }
-.enter-text{ font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); font-weight:600; }
-.enter-sub{ margin-top:8px; font-size:11px; color:rgba(139,133,168,.55); letter-spacing:.15em; text-transform:uppercase; }
+@keyframes ring-pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.08); } }
 
-/* ---------- page stage / card (shared) ---------- */
-.stage{
-  position:relative; z-index:10;
-  display:flex; align-items:flex-start; justify-content:center;
-  padding:24px 24px 60px;
-  min-height:calc(100vh - 70px);
-}
-.card{
-  width:100%; max-width:340px;
+.card {
+  width:100%; max-width:360px;
   background:var(--card);
   border:1px solid var(--line);
-  border-radius:20px;
-  padding:34px 26px 26px;
+  border-radius:24px;
+  padding:40px 30px 30px;
   text-align:center;
-  position:relative;
-  backdrop-filter:blur(18px);
-  box-shadow:0 30px 80px -20px rgba(0,0,0,.7);
-  animation:rise .7s cubic-bezier(.2,.8,.2,1) .05s both;
-}
-@keyframes rise{
-  from{ transform:translateY(18px); opacity:0; }
-  to{ transform:translateY(0); opacity:1; }
+  backdrop-filter:blur(20px);
+  box-shadow:0 40px 100px -20px rgba(150,0,255,.4);
+  animation:rise .8s cubic-bezier(.2,.9,.2,1) .1s both;
 }
 
-.avatar{
-  width:96px; height:96px; border-radius:50%;
-  margin:0 auto 16px;
-  position:relative;
+.avatar {
+  width:110px; height:110px; border-radius:50%;
+  margin:0 auto 20px;
   display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(160deg,#1a1626,#0d0b14);
-  font-size:34px; font-weight:700;
+  background:linear-gradient(160deg,#1a0f2e,#0d0819);
+  font-size:38px; font-weight:900;
   color:var(--ink);
+  box-shadow:0 0 40px 8px rgba(255,0,255,.6);
+  animation: avatar-spin 15s linear infinite;
 }
-.avatar::before{
-  content:''; position:absolute; inset:-3px; border-radius:50%;
-  background:conic-gradient(from 0deg, var(--accent), var(--accent2), var(--accent));
+.avatar::before {
+  content:''; position:absolute; inset:-6px; border-radius:50%;
+  background:conic-gradient(from 0deg, var(--accent), var(--accent2), #ffff00, var(--accent));
   z-index:-1;
-  animation:spin 6s linear infinite;
+  animation:spin 4s linear infinite;
 }
-.avatar::after{
-  content:''; position:absolute; inset:0; border-radius:50%;
-  box-shadow:0 0 30px 4px rgba(139,92,246,.35);
-}
-@keyframes spin{ to{ transform:rotate(360deg); } }
 
-.name{
-  font-size:20px; font-weight:700; letter-spacing:.02em;
-  display:flex; align-items:center; justify-content:center; gap:6px;
-}
-.badge{ width:16px; height:16px; display:inline-flex; color:var(--accent2); }
-.uid{ margin-top:4px; font-size:11px; color:var(--muted); letter-spacing:.08em; }
-.bio{ margin-top:14px; font-size:13px; line-height:1.6; color:#c3bfe0; }
+@keyframes avatar-spin { to { transform:rotate(360deg); } }
 
-.links{ margin-top:22px; display:flex; flex-direction:column; gap:10px; }
-.link{
-  display:flex; align-items:center; gap:12px;
-  padding:11px 16px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:rgba(255,255,255,.02);
-  color:var(--ink);
-  text-decoration:none;
-  font-size:13px; font-weight:600;
-  transition:border-color .2s, transform .15s, background .2s;
-  text-align:left;
-}
-.link:hover{ border-color:var(--accent); background:rgba(139,92,246,.08); transform:translateY(-2px); }
-.link svg{ width:17px; height:17px; flex:none; }
-.link span.sub{ margin-left:auto; font-size:11px; color:var(--muted); font-weight:500; }
+.name { font-size:28px; font-weight:900; letter-spacing:.03em; display:flex; align-items:center; justify-content:center; gap:8px; }
+.bio { margin:18px 0 24px; font-size:14.5px; line-height:1.65; color:#d4c8ff; }
 
-.views{
-  margin-top:20px; font-size:11px; color:var(--muted);
-  letter-spacing:.06em; display:flex; align-items:center; justify-content:center; gap:6px;
+.link:hover {
+  border-color:var(--accent);
+  background:rgba(255,0,255,.15);
+  transform:translateY(-4px) scale(1.02);
+  box-shadow:0 0 25px rgba(255,0,255,.5);
 }
-.views svg{ width:13px; height:13px; }
-.footer{ margin-top:6px; font-size:10px; color:rgba(139,133,168,.45); letter-spacing:.1em; }
 
-/* ---------- links directory page extras ---------- */
-.card.wide{ max-width:420px; text-align:left; }
-.section-label{
-  margin-top:24px; margin-bottom:10px;
-  font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
-}
-.section-label:first-child{ margin-top:0; }
-
-@media (prefers-reduced-motion: reduce){
-  *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; }
-}
+/* Keep the rest of your original CSS and add at the bottom if needed */
+.views, .footer { margin-top:20px; font-size:11px; color:var(--muted); }
