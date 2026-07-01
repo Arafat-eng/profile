@@ -343,7 +343,8 @@
 <script>
 /* ---------------- config you can tweak ---------------- */
 const TAGLINE = "> currently compiling chaos...";
-const AUDIO_SRC = "https://cs1.mp3.pm/download/240441252/bWgzRTcreHoxMDFnSjMvUlovL2JRWTU0c3JmZlovMFFFbkNuTGpyUXBqNThPZ3RYeFFoeHM1TENFd0lzNXNVcFFUVU52RE4vSU05L0hlTGt4TnNxTUVpcVBtTGRucXFJWHJ1YitDL3hjV0NBK0tjQVNERWl3NWpseW9Qc3lnaWM/Alok_Alan_Walker_-_Headlights_Fajar_Asia_Remix_feat._KIDDO_(mp3.pm).mp3"; // put a direct .mp3 URL here to make the player actually play audio
+const AUDIO_SRC = "https://cs1.mp3.pm/download/240441252/bWgzRTcreHoxMDFnSjMvUlovL2JRWTU0c3JmZlovMFFFbkNuTGpyUXBqNThPZ3RYeFFoeHM1TENFd0lzNXNVcFFUVU52RE4vSU05L0hlTGt4TnNxTUVpcVBtTGRucXFJWHJ1YitDL3hjV0NBK0tjQVNERWl3NWpseW9Qc3lnaWM/Alok_Alan_Walker_-_Headlights_Fajar_Asia_Remix_feat._KIDDO_(mp3.pm).mp3";
+
 /* ---------------- typewriter tagline ---------------- */
 (function typewriter(){
   const el = document.getElementById('tagline-text');
@@ -357,7 +358,8 @@ const AUDIO_SRC = "https://cs1.mp3.pm/download/240441252/bWgzRTcreHoxMDFnSjMvUlo
   }
   tick();
 })();
-/* ---------------- view counter (session-persisted via localStorage-free memory) ---------------- */
+
+/* ---------------- view counter ---------------- */
 (function views(){
   const el = document.getElementById('viewCount');
   let target = 1200 + Math.floor(Math.random()*400);
@@ -369,6 +371,7 @@ const AUDIO_SRC = "https://cs1.mp3.pm/download/240441252/bWgzRTcreHoxMDFnSjMvUlo
     el.textContent = cur.toLocaleString();
   }, 25);
 })();
+
 /* ---------------- cursor glow ---------------- */
 (function cursorGlow(){
   const glow = document.getElementById('cursor-glow');
@@ -379,6 +382,7 @@ const AUDIO_SRC = "https://cs1.mp3.pm/download/240441252/bWgzRTcreHoxMDFnSjMvUlo
   window.addEventListener('mouseleave', ()=>{ glow.style.opacity = '0'; });
   window.addEventListener('mouseenter', ()=>{ glow.style.opacity = '1'; });
 })();
+
 /* ---------------- audio player ---------------- */
 (function player(){
   const btn = document.getElementById('playBtn');
@@ -394,13 +398,14 @@ const AUDIO_SRC = "https://cs1.mp3.pm/download/240441252/bWgzRTcreHoxMDFnSjMvUlo
     playing = !playing;
     bars.classList.toggle('playing', playing);
     icon.innerHTML = playing
-      ? '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>'
-      : '<path d="M8 5v14l11-7Z"/>';
+      ? '<path d="M6 4h4v16H6zM14 4h4v16h-4z" fill="currentColor"/>'
+      : '<path d="M8 5v14l11-7z" fill="currentColor"/>';
     if (audio){
-      playing ? audio.play() : audio.pause();
+      playing ? audio.play().catch(()=>{}) : audio.pause();
     }
   });
 })();
+
 /* ---------------- ambient particle backdrop ---------------- */
 (function particles(){
   const canvas = document.getElementById('bg-canvas');
@@ -425,7 +430,6 @@ const AUDIO_SRC = "https://cs1.mp3.pm/download/240441252/bWgzRTcreHoxMDFnSjMvUlo
   }));
   function draw(){
     ctx.clearRect(0,0,w,h);
-    // base gradient
     const grad = ctx.createRadialGradient(w*0.5, h*0.35, 0, w*0.5, h*0.35, Math.max(w,h)*0.7);
     grad.addColorStop(0, '#151322');
     grad.addColorStop(1, '#0a0a0f');
@@ -450,7 +454,6 @@ const AUDIO_SRC = "https://cs1.mp3.pm/download/240441252/bWgzRTcreHoxMDFnSjMvUlo
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     draw();
   } else {
-    // static render for reduced motion
     const grad = ctx.createRadialGradient(w*0.5, h*0.35, 0, w*0.5, h*0.35, Math.max(w,h)*0.7);
     grad.addColorStop(0, '#151322');
     grad.addColorStop(1, '#0a0a0f');
