@@ -6,18 +6,19 @@
 <title>PHANTO MK</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: 'Inter', system-ui, sans-serif;
-    color: #fff;
+  body, html {
+    height: 100%;
     overflow: hidden;
-    height: 100vh;
     background: #000;
-    position: relative;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: white;
   }
   #bg-video {
     position: fixed;
-    top: 50%; left: 50%;
-    min-width: 100%; min-height: 100%;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
     transform: translate(-50%, -50%);
     z-index: 1;
     object-fit: cover;
@@ -25,7 +26,7 @@
   .overlay {
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.85) 100%);
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.85));
     z-index: 2;
     display: flex;
     align-items: center;
@@ -37,60 +38,58 @@
     text-align: center;
     width: 380px;
     max-width: 92vw;
-    padding: 40px 30px;
-    border: 1px solid rgba(0,255,200,0.3);
-    border-radius: 20px;
-    background: rgba(10,10,20,0.75);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 60px rgba(0,255,157,0.2);
+    padding: 50px 35px 40px;
+    background: rgba(10, 10, 20, 0.75);
+    border: 1px solid rgba(0, 255, 157, 0.4);
+    border-radius: 22px;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 0 80px rgba(0, 255, 157, 0.25);
   }
   .avatar {
-    width: 120px;
-    height: 120px;
+    width: 128px;
+    height: 128px;
     border-radius: 50%;
-    border: 4px solid #00ff9d;
-    margin: 0 auto 20px;
+    border: 5px solid #00ff9d;
+    margin: 0 auto 24px;
     overflow: hidden;
   }
   .avatar img {
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
   .name {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
-    letter-spacing: -1px;
-    margin-bottom: 6px;
-    text-shadow: 0 0 20px #00ff9d;
+    letter-spacing: -1.5px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 30px #00ff9d;
   }
   .handle {
     color: #00ff9d;
     font-family: monospace;
-    margin-bottom: 24px;
+    font-size: 15px;
   }
   .enter {
-    margin-top: 30px;
-    font-size: 15px;
+    margin-top: 40px;
+    font-size: 17px;
+    letter-spacing: 2px;
     color: #aaa;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: 0.4s;
   }
   .enter:hover {
     color: #00ff9d;
-    text-shadow: 0 0 15px #00ff9d;
-  }
-  .particles {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 4;
+    text-shadow: 0 0 20px #00ff9d;
   }
 </style>
 </head>
 <body>
 
+<!-- === EXACT BACKGROUND VIDEO === -->
 <video id="bg-video" autoplay loop muted playsinline>
   <source src="/home/workdir/attachments/Screen Recording 2026-07-01 195828.mp4" type="video/mp4">
+  Your browser does not support the video tag.
 </video>
 
 <div class="overlay">
@@ -101,48 +100,38 @@
     <div class="name">PHANTO MK</div>
     <div class="handle">@phanto_mk</div>
     
-    <p style="color:#bbb; line-height:1.6; margin:20px 0;">
-      Cyber Ronin • Digital Phantom<br>
-      Synthwave &amp; Violence
-    </p>
-
-    <div class="enter" id="enterBtn">click to enter...</div>
+    <div class="enter" id="enter">CLICK TO ENTER...</div>
   </div>
 </div>
 
-<div class="particles" id="particles"></div>
+<!-- Background Audio -->
+<audio id="bg-audio" loop>
+  <!-- Add your audio URL here if you have one -->
+  <source src="" type="audio/mp3">
+</audio>
 
 <script>
-// Click to "enter" effect
-document.getElementById('enterBtn').addEventListener('click', () => {
-  alert("Welcome to the Phantom Realm");
-  // You can redirect or trigger more effects here
-});
+  const video = document.getElementById('bg-video');
+  const audio = document.getElementById('bg-audio');
+  const enterBtn = document.getElementById('enter');
 
-// Simple floating particles
-const particlesContainer = document.getElementById('particles');
-for(let i = 0; i < 60; i++) {
-  const p = document.createElement('div');
-  p.style.position = 'absolute';
-  p.style.width = p.style.height = Math.random() * 4 + 'px';
-  p.style.background = '#00ff9d';
-  p.style.borderRadius = '50%';
-  p.style.opacity = Math.random() * 0.6 + 0.2;
-  p.style.left = Math.random() * 100 + 'vw';
-  p.style.top = Math.random() * 100 + 'vh';
-  p.style.animation = `float ${Math.random() * 15 + 10}s linear infinite`;
-  particlesContainer.appendChild(p);
-}
+  // Ensure video plays
+  video.play().catch(() => {});
 
-// Add floating animation
-const style = document.createElement('style');
-style.innerHTML = `
-  @keyframes float {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-100vh); }
-  }
-`;
-document.head.appendChild(style);
+  // Optional: Play audio when user clicks "enter"
+  enterBtn.addEventListener('click', () => {
+    if (audio.src) {
+      audio.play();
+    }
+    alert("Welcome to the Phantom Realm 🔥");
+  });
+
+  // Keyboard shortcut (Space = toggle audio)
+  document.addEventListener('keydown', e => {
+    if (e.code === 'Space') {
+      audio.paused ? audio.play() : audio.pause();
+    }
+  });
 </script>
 
 </body>
